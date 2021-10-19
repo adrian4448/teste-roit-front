@@ -16,11 +16,12 @@ export default {
     mutations: {
         adicionarUsuario(state, usuario) {
             state.usuarios.push(usuario)
+            state.usuarioToEdit = { endereco: {}, githubInfo: {} };
         },
         alterarUsuario(state, usuarioToAlter) {
             const indice = state.usuarios.findIndex(usuario => usuario._id == usuarioToAlter._id)
             state.usuarios.splice(indice, 1, usuarioToAlter)
-            state.usuarioToEdit = {}
+            state.usuarioToEdit = { endereco: {}, githubInfo: {} };
         },
         atualizarUsuarios(state, usuarios) {
             state.usuarios = usuarios;
