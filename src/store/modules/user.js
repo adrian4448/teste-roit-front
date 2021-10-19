@@ -26,11 +26,15 @@ export default {
         atualizarUsuarios(state, usuarios) {
             state.usuarios = usuarios;
         },
-        deletarUsuario(state, usuario) {
-            state.usuarios.splice(state.usuarios.indexOf(usuario), 1)
+        deletarUsuario(state, userId) {
+            const userToDelete = state.usuarios.find(user => user._id == userId);
+            state.usuarios.splice(state.usuarios.indexOf(userToDelete), 1)
         },
         usuarioToEdit(state, usuario) {
             state.usuarioToEdit = usuario;
+        },
+        limparUsuario(state) {
+            state.usuarioToEdit = { endereco: {}, githubInfo: {} };
         }
     },
     actions: {
@@ -48,14 +52,17 @@ export default {
             commit('atualizarUsuarios', usuarios);
         },
         deletarUsuario({ commit }, userId) {
-            UserService.deletarUsuario(userId).then(usuario => {
-                commit('deletarUsuario', usuario);
+            UserService.deletarUsuario(userId).then(() => {
+                commit('deletarUsuario', userId);
             });
         },
         setUsuarioToEdit({ commit }, id) {
             UserService.getUsuarioById(id).then(usuario => {
                 commit('usuarioToEdit', usuario)
             });    
+        },
+        limparUsuario({ commit }) {
+            commit('limparUsuario');
         }
     },
     getters: {

@@ -38,7 +38,7 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="#E2B874" outlined plain to="/usuarios">Fechar</v-btn>
+        <v-btn color="#E2B874" outlined plain @click="fecharForm">Fechar</v-btn>
         <v-btn color="#E2B874" dark @click="salvarUsuario">{{ usuario._id ? 'Alterar' : 'Salvar' }}</v-btn>
       </v-card-actions>
 
@@ -72,6 +72,10 @@ export default {
         }
         this.$router.push({ path: '/usuarios'})
       }  
+    },
+    fecharForm() {
+      this.$store.dispatch('limparUsuario');
+      this.$router.push({ path: '/usuarios'});
     }
   },
   computed: {
